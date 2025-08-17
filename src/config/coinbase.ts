@@ -4,13 +4,8 @@ import { coinbaseWallet } from 'wagmi/connectors';
 import { http } from 'viem';
 import { createPublicClient, parseUnits, encodeFunctionData } from 'viem';
 
-// Validate environment variables
-const projectId = import.meta.env.VITE_COINBASE_PROJECT_ID;
-const apiKey = import.meta.env.VITE_COINBASE_API_KEY;
-
-if (!projectId || !apiKey) {
-  console.warn('Coinbase credentials not found. Some features may not work properly.');
-}
+// Coinbase credentials are now handled server-side and should not be exposed to the client.
+// Remove any VITE_ prefixed variables to prevent leaking sensitive values in the browser.
 
 // Contract addresses for session key permissions
 const AERODROME_ROUTER = '0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43';
@@ -131,7 +126,6 @@ export const coinbaseConfig = createConfig({
       preference: 'smartWalletOnly',
       enableHostedBackups: false,
       version: '4',
-      ...(projectId && { projectId }),
     }),
   ],
   transports: {
